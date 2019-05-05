@@ -1,4 +1,5 @@
 import React from 'react';
+import {Form, Button} from 'react-bootstrap';
 
 export class SignUp extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export class SignUp extends React.Component {
     this.OnTextBoxChangedSignUpPassword = this.OnTextBoxChangedSignUpPassword.bind(this);
 
     this.OnSignUp = this.OnSignUp.bind(this);
+    this.OnLogin = this.OnLogin.bind(this);
   }
   OnTextBoxChangedSignUpFirstName(event){
     this.setState({
@@ -60,6 +62,7 @@ export class SignUp extends React.Component {
     }).then(res => res.json())
     .then(json => {
       if(json.success){
+        this.props.onLoginClick(signUpEmail);
         this.setState({
           signInError: json.message,
           signUpFirstName:'',
@@ -67,7 +70,6 @@ export class SignUp extends React.Component {
           signUpEmail: '',
           signUpPassword:'',
         });
-        this.props.loginClickCallback(json);
       }
       else{
         this.setState({
@@ -76,7 +78,9 @@ export class SignUp extends React.Component {
       }
     });
     }
-
+  OnLogin(event){
+    this.props.onLoginClick();
+  }
   render() {
     const {
       signUpFirstName,
@@ -87,34 +91,36 @@ export class SignUp extends React.Component {
     } = this.state;
     return (
       <div>
-        <p>User Sign Up</p>
-        <input
-        type="textbox"
-        placeholder="First Name"
-        value = {signUpFirstName}
-        onChange = {this.OnTextBoxChangedSignUpFirstName}
-        />
-        <input
-        type="textbox"
-        placeholder="Last Name"
-        value = {signUpLastName}
-        onChange = {this.OnTextBoxChangedSignUpLastName}
-        />
-        <br/>
-        <input
-        type="email"
-        placeholder="Email"
-        value = {signUpEmail}
-        onChange = {this.OnTextBoxChangedSignUpEmail}
-        />
-        <br/>
-        <input
-        type="password"
-        placeholder="Password"
-        value = {signUpPassword}
-        onChange = {this.OnTextBoxChangedSignUpPassword}
-        />
-        <button onClick={this.OnSignUp}>Sign Up</button>
+        <h1>User Sign Up</h1>
+        <Form.Group controlId="formBasicFirstName">
+          <Form.Label>First Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter first name" value={signUpFirstName} onChange = {this.OnTextBoxChangedSignUpFirstName}/>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicLastName">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control type="text" placeholder="Enter last name" value={signUpLastName} onChange = {this.OnTextBoxChangedSignUpLastName}/>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" value={signUpEmail} onChange = {this.OnTextBoxChangedSignUpEmail}/>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Enter password" value={signUpPassword} onChange = {this.OnTextBoxChangedSignUpPassword}/>
+        </Form.Group>
+        <Button variant="primary" onClick={this.OnSignUp}>
+          Sign Up
+        </Button>
+
+        <Form.Group controlId="formBasicSignUp">
+          <Form.Label >Already have an account?</Form.Label>
+          <Button variant="link" onClick={this.OnLogin}>
+            Login
+          </Button>
+        </Form.Group>
       </div>
     )
   }

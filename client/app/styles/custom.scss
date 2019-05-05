@@ -1,6 +1,11 @@
 @charset "UTF-8";
 // Override default variables before the import
-$body-bg: #000;
+//$body-bg: #000;
 
 // Import Bootstrap and its default variables
-@import '~bootstrap/scss/bootstrap.scss';
+//@import '~bootstrap/scss/bootstrap.scss';
+
+.labelCustom{
+  margin-left: 5px;
+  margin-right: 5px;
+}

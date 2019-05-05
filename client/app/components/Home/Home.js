@@ -15,18 +15,7 @@ class Home extends Component {
       isLoading: true,
       token:'',
     };
-    this.LoginClickHandler = this.LoginClickHandler.bind(this);
-    this.SignUpClickHandler = this.SignUpClickHandler.bind(this);
     this.onLogoutClickHandler = this.onLogoutClickHandler.bind(this);
-  }
-  LoginClickHandler(dataFromLogin){
-    this.setState({
-      token: dataFromLogin.token,
-    });
-    setInStorage('main_app_key',dataFromLogin);
-  }
-  SignUpClickHandler(dataFromSignUp){
-
   }
 
   onLogoutClickHandler(){
@@ -43,11 +32,13 @@ class Home extends Component {
               isLoading: false
             });
             removeFromStorage('main_app_key');
+            this.props.history.push("/welcome");
           }
           else{
             this.setState({
               isLoading: false
             });
+            this.props.history.push("/welcome");
           }
         });
     }
@@ -59,7 +50,7 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    const obj = getFromStorage('main_app_key')
+    const obj = getFromStorage('main_app_key');
     if(obj){
       //verify thte token
       const {token} = obj;
@@ -77,6 +68,7 @@ class Home extends Component {
             this.setState({
               isLoading: false
             });
+            this.props.history.push("/welcome");
           }
         });
     }
@@ -85,30 +77,29 @@ class Home extends Component {
       this.setState({
         isLoading: false
       });
+      this.props.history.push("/welcome");
     }
   }
 
   render() {
     const {
       isLoading,
-      token
+      token,
     } = this.state;
     if(isLoading){
       return(<p>Loading...</p>);
     }
-    if(!token){
+    if(token){
       return(
         <div>
-          <Login loginClickCallback={this.LoginClickHandler} />
-          <SignUp signUpClickCallback = {this.SignUpClickHandler}/>
-        </div>);
+          <p>Account</p>
+          <button onClick={this.onLogoutClickHandler}>Log out</button>
+        </div>
+      );
     }
-    return (
-      <div>
-        <p>Account</p>
-        <button onClick={this.onLogoutClickHandler}>Log out</button>
-      </div>
-    );
+    else{
+      return(<div></div>);
+    }
   }
 }
 
