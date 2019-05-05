@@ -71,7 +71,7 @@ class Home extends Component {
               token,
               isLoading: false
             });
-            setInStorage('main_app_key',dataFromLogin);
+            setInStorage('main_app_key',obj);
           }
           else{
             this.setState({
