@@ -6,7 +6,7 @@ class About extends Component {
       <div>
       <p>This is about.</p>
       </div>
-    )
+    );
   }
 }
 export default About;

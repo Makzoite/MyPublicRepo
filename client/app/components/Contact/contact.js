@@ -6,7 +6,7 @@ class Contact extends Component {
       <div>
       <p>This is contact.</p>
       </div>
-    )
+    );
   }
 }
 export default Contact;
