@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import 'whatwg-fetch';
 import Login from '../Login/login';
 import SignUp from '../SignUp/signup';
+import {NavigationBar} from '../App/navigationbar';
+import {Jumbotron} from '../App/Jumbotron';
+import {Layout} from '../App/layout';
 import {
   getFromStorage,
   setInStorage,
@@ -91,10 +94,14 @@ class Home extends Component {
     }
     if(token){
       return(
+        <React.Fragment>
+        <NavigationBar isLoggedIn={true} logOutButtonClick={this.onLogoutClickHandler}/>
+        <Jumbotron isLoggedIn={true} firstName={this.props.location.state.userfirstname}/>
+        <Layout>
         <div>
-          <p>Account</p>
-          <button onClick={this.onLogoutClickHandler}>Log out</button>
         </div>
+        </Layout>
+        </React.Fragment>
       );
     }
     else{

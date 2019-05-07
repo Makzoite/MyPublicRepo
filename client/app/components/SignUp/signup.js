@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Container, Row, Col} from 'react-bootstrap';
 
 export class SignUp extends React.Component {
   constructor(props) {
@@ -90,11 +90,14 @@ export class SignUp extends React.Component {
       signUpError,
     } = this.state;
     return (
-      <div>
+      <Container>
+      <Row>
+      <Col md={{ span: 6, offset: 3 }}>
+      <Form>
         <h1>User Sign Up</h1>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter first name" value={signUpFirstName} onChange = {this.OnTextBoxChangedSignUpFirstName}/>
+          <Form.Control type="text" placeholder="Enter first name" value={signUpFirstName} onChange = {this.OnTextBoxChangedSignUpFirstName} required/>
         </Form.Group>
 
         <Form.Group controlId="formBasicLastName">
@@ -121,7 +124,10 @@ export class SignUp extends React.Component {
             Login
           </Button>
         </Form.Group>
-      </div>
+      </Form>
+      </Col>
+      </Row>
+      </Container>
     )
   }
 }

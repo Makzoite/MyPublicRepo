@@ -1,18 +1,17 @@
 import React from 'react';
-import {Form, Button, Link} from 'react-bootstrap';
+import {Form, Button, Link, Row, Col} from 'react-bootstrap';
 import styled from 'styled-components';
 import {NavigationBar} from '../App/navigationbar';
 import {Jumbotron} from '../App/Jumbotron';
 import {Layout} from '../App/layout';
 import {SignUp} from '../SignUp/signup';
+import { ToastContainer } from "react-toastr";
+import {Container} from 'react-bootstrap';
 import {
   getFromStorage,
   setInStorage,
   removeFromStorage
 } from '../../utils/storage';
-const Styles = styled.div`
-.labelCustom{
-`;
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -67,7 +66,10 @@ class Login extends React.Component {
           signInPassword:'',
         });
         setInStorage('main_app_key',json);
-        this.props.history.push("/");
+        this.props.history.push({
+          pathname: '/',
+          state: json // your data array of objects
+        });
       }
       else{
         this.setState({
@@ -99,14 +101,17 @@ class Login extends React.Component {
       signInError,
       isSignUp,
     } = this.state;
+
     if(!isSignUp)
     {
       return (
         <React.Fragment>
-        <NavigationBar/>
+        <NavigationBar isLoggedIn={false} userName={""}/>
         <Jumbotron/>
         <Layout>
-        <div>
+        <Container>
+        <Row>
+        <Col md={{ span: 6, offset: 3 }}>
           <Form>
             <h1>User Login</h1>
             <Form.Group controlId="formBasicEmail">
@@ -128,7 +133,9 @@ class Login extends React.Component {
               </Button>
             </Form.Group>
           </Form>
-        </div>
+          </Col>
+          </Row>
+          </Container>
         </Layout>
         </React.Fragment>
       );
@@ -149,18 +156,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-// <input
-//   type="email"
-//   placeholder="Email"
-//   value = {signInEmail}
-//   onChange = {this.OnTextBoxChangedSignInEmail}
-// />
-// <br/>
-// <input
-//   type="password"
-//   placeholder="Password"
-//   value={signInPassword}
-//   onChange = {this.OnTextBoxChangedSignInPassword}
-// />
-// <br/>
-// button onClick={this.OnLogin}>Login</button>

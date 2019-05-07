@@ -16,13 +16,15 @@ const Styles = styled.div`
 }
 `;
 
-export const Jumbotron = () => (
+export const Jumbotron = (props) => (
   <Styles>
     <Jumbo fluid className="jumbo">
       <div className="overlay"></div>
       <Container>
-        <h1>Welcome</h1>
-        <p>This is the collection of objective questions. Please either register or log in to access all the contents.</p>
+        <h1>Welcome {props.firstName}</h1>
+        {
+          props.isLoggedIn ? <p>Please answer the below questions.</p> : <p>This is the collection of objective questions. Please either register or log in to access all the contents.</p>
+        }
       </Container>
     </Jumbo>
   </Styles>
