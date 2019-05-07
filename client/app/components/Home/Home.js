@@ -17,6 +17,7 @@ class Home extends Component {
     this.state = {
       isLoading: true,
       token:'',
+      userfirstname:'',
     };
     this.onLogoutClickHandler = this.onLogoutClickHandler.bind(this);
   }
@@ -56,14 +57,15 @@ class Home extends Component {
     const obj = getFromStorage('main_app_key');
     if(obj){
       //verify thte token
-      const {token} = obj;
+      const {token, userfirstname} = obj;
       fetch('/api/account/verify?token='+ token)
         .then(res => res.json())
         .then(json => {
           if(json.success){
             this.setState({
               token,
-              isLoading: false
+              isLoading: false,
+              userfirstname,
             });
             setInStorage('main_app_key',obj);
           }
@@ -88,6 +90,7 @@ class Home extends Component {
     const {
       isLoading,
       token,
+      userfirstname,
     } = this.state;
     if(isLoading){
       return(<p>Loading...</p>);
@@ -96,7 +99,7 @@ class Home extends Component {
       return(
         <React.Fragment>
         <NavigationBar isLoggedIn={true} logOutButtonClick={this.onLogoutClickHandler}/>
-        <Jumbotron isLoggedIn={true} firstName={this.props.location.state.userfirstname}/>
+        <Jumbotron isLoggedIn={true} firstName={userfirstname}/>
         <Layout>
         <div>
         </div>

@@ -66,10 +66,7 @@ class Login extends React.Component {
           signInPassword:'',
         });
         setInStorage('main_app_key',json);
-        this.props.history.push({
-          pathname: '/',
-          state: json // your data array of objects
-        });
+        this.props.history.push("/");
       }
       else{
         this.setState({
